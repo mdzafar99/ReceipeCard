@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interactive Recipe Card - Chocolate Cake</title>
+  <style>
+    /* 1. CSS Variables for easy maintenance */
+    :root {
+      --primary-color: #ff597b; /* Main accent color (Pink/Red) */
+      --secondary-color: #ff8c94; /* Button/accent color (Coral) */
+      --light-bg: #ffe2e2; /* Light background for highlighting */
+      --text-color: #333;
+      --white: #fff;
+      --card-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, var(--white), #ffeaea);
+      color: var(--text-color);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .recipe-card {
+      background: var(--white);
+      width: 90%;
+      max-width: 800px;
+      border-radius: 20px;
+      box-shadow: var(--card-shadow);
+      /* CRITICAL for containment: Ensures header/image conforms to rounded corners */
+      overflow: hidden; 
+      transition: transform 0.3s ease;
+    }
+
+    .recipe-card:hover {
+      transform: scale(1.02);
+    }
+
+    .header {
+      position: relative;
+    }
+
+    .header img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-bottom: 5px solid var(--secondary-color);
+    }
+
+    .title {
+      position: absolute;
+      bottom: 10px;
+      left: 20px;
+      color: var(--white);
+      background: rgba(0, 0, 0, 0.5);
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 1.8em;
+      animation: fadeInUp 1s ease;
+    }
+
+    @keyframes fadeInUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    h2 {
+      color: var(--primary-color);
+      margin-bottom: 10px;
+      border-bottom: 2px solid var(--light-bg);
+      display: inline-block;
+      padding-bottom: 5px;
+    }
+
+    /* Target both ul and ol */
+    ul, ol {
+      list-style: none;
+      padding: 0;
+    }
+
+    /* Style for list items */
+    li {
+      padding: 8px 10px; 
+      border-bottom: 1px solid #f5f5f5;
+      transition: all 0.3s ease;
+    }
+
+    li:hover {
+      color: var(--primary-color);
+      transform: translateX(5px);
+    }
+
+    /* 2. CSS for Active Step (Uses data-active attribute set by JS) */
+    #stepsList li[data-active="true"] {
+      background: var(--light-bg); 
+      font-weight: 600; 
+      color: var(--primary-color);
+      border-radius: 5px; 
+      transform: none; 
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      background: var(--secondary-color);
+      color: var(--white);
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background: var(--primary-color);
+      transform: scale(1.05);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .progress-bar {
+      height: 10px;
+      background: var(--light-bg);
+      border-radius: 5px;
+      overflow: hidden;
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+
+    .progress {
+      height: 10px;
+      width: 0%;
+      background: var(--primary-color);
+      border-radius: 5px;
+      transition: width 0.5s ease;
+    }
+
+    @media (max-width: 600px) {
+      .title {
+        font-size: 1.3em;
+      }
+      .content {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="recipe-card">
+    <div class="header">
+      <img src="https://images.unsplash.com/photo-1605475128023-036a52f0283b" alt="Chocolate Cake" />
+      <div class="title">Chocolate Cake</div>
+    </div>
+    <div class="content">
+      <p><strong>Preparation Time:</strong> 45 mins | <strong>Serving Size:</strong> 6</p>
+      
+      <div class="buttons">
+        <button id="toggleIngredients">Show Ingredients</button>
+        <button id="toggleSteps">Show Steps</button>
+        <button id="startCooking">Start Cooking</button>
+      </div>
+
+      <div id="ingredients" class="hidden">
+        <h2>Ingredients</h2>
+        <ul>
+          <li>1 cup all-purpose flour</li>
+          <li>1 cup sugar</li>
+          <li>1/2 cup cocoa powder</li>
+          <li>2 eggs</li>
+          <li>1/2 cup butter</li>
+          <li>1 tsp baking powder</li>
+          <li>1/2 cup milk</li>
+        </ul>
+      </div>
+
+      <div id="steps" class="hidden">
+        <h2>Steps</h2>
+        <ol id="stepsList"> 
+          <li>Preheat the oven to 180°C.</li>
+          <li>Mix flour, sugar, and cocoa powder.</li>
+          <li>Add eggs, butter, and milk; whisk until smooth.</li>
+          <li>Pour the batter into a greased baking pan.</li>
+          <li>Bake for 30–35 minutes.</li>
+          <li>Cool and serve with chocolate glaze.</li>
+        </ol>
+        <div class="progress-bar">
+          <div class="progress" id="progress"></div>
+        </div>
+        <button id="nextStep">Next Step</button> 
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Get all necessary elements
+    const toggleIngredients = document.getElementById('toggleIngredients');
+    const toggleSteps = document.getElementById('toggleSteps');
+    const ingredients = document.getElementById('ingredients');
+    const steps = document.getElementById('steps');
+    const startCooking = document.getElementById('startCooking');
+    const nextStep = document.getElementById('nextStep');
+    const stepsListContainer = document.getElementById('stepsList');
+    const stepsList = stepsListContainer.getElementsByTagName('li');
+    const progress = document.getElementById('progress');
+
+    let currentStep = -1; // Start at -1 so first "Start" or "Next" can properly move to 0
+
+    // Function to update the step visualization and progress bar
+    const updateStepUI = () => {
+        // 1. Clear all active states
+        Array.from(stepsList).forEach(step => {
+            step.removeAttribute('data-active');
+        });
+        
+        // 2. Set the current step's active state, if within bounds
+        if (currentStep >= 0 && currentStep < stepsList.length) {
+            stepsList[currentStep].setAttribute('data-active', 'true');
+        }
+
+        // 3. Update the progress bar
+        const progressWidth = ((currentStep + 1) / stepsList.length) * 100;
+        progress.style.width = `${progressWidth}%`;
+        
+        // 4. Update the Next button text
+        if (currentStep === stepsList.length - 1) {
+            nextStep.textContent = "Finish & Enjoy!";
+        } else {
+            nextStep.textContent = "Next Step";
+        }
+    };
+
+    // 1. Toggle Ingredients
+    toggleIngredients.addEventListener('click', () => {
+      ingredients.classList.toggle('hidden');
+      toggleIngredients.textContent = ingredients.classList.contains('hidden') ? 'Show Ingredients' : 'Hide Ingredients';
+    });
+
+    // 2. Toggle Steps
+    toggleSteps.addEventListener('click', () => {
+      steps.classList.toggle('hidden');
+      toggleSteps.textContent = steps.classList.contains('hidden') ? 'Show Steps' : 'Hide Steps';
+    });
+
+    // 3. Start Cooking / Reset
+    startCooking.addEventListener('click', () => {
+      // UX Improvement: automatically show the steps
+      if (steps.classList.contains('hidden')) {
+          steps.classList.remove('hidden');
+          toggleSteps.textContent = 'Hide Steps';
+      }
+      
+      nextStep.style.display = 'block'; // Make sure the button is visible
+      currentStep = 0;
+      updateStepUI(); 
+    });
+
+    // 4. Next Step
+    nextStep.addEventListener('click', () => {
+      if (currentStep < stepsList.length - 1) {
+        currentStep++;
+        updateStepUI();
+        
+      } else if (currentStep === stepsList.length - 1) {
+        // Final step complete
+        updateStepUI(); // Ensure progress hits 100%
+        alert('Cooking complete! Enjoy your delicious chocolate cake 🎂');
+        currentStep = stepsList.length; // Set to finished state
+        nextStep.style.display = 'none'; // Hide the button after finishing
+        
+      } else {
+        // If the recipe is already finished
+        alert('The recipe is finished! Click "Start Cooking" to prepare another cake!'); 
+      }
+    });
+  </script>
+</body>
+  </html>
+  
