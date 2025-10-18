@@ -530,8 +530,27 @@
         currentStep = 0;
         updateStepUI();
       });
+      
 
-      nextStep.addEventListener('click', () => {
+      nextStep.onclick = () => {
+        if (currentStep < stepsList.length - 1) {
+          stepsList [currentStep].style.background = 'transparent';
+          currentStep++;
+          stepsList[currentStep].style.background = '#ffe2e2';
+          progress.style.width = `${((currentStep + 1) / stepsList.length)*100}%`;
+        } 
+        else if (currentStep === stepsList.length - 1) {
+          updateStepUI();
+          alert('Cooking complete! Enjoy your delicious creation 🍰');
+          nextStep.style.display = 'none';
+          currentStep = stepsList.length;
+        }
+        else {
+          alert('Recipe finished! Click "Start Cooking" to begin again.');
+          }
+      };
+
+      /*nextStep.addEventListener('click', () => {
         if (currentStep < stepsList.length - 1) {
           currentStep++;
           updateStepUI();
@@ -543,7 +562,7 @@
         } else {
           alert('Recipe finished! Click "Start Cooking" to begin again.');
         }
-      });
+      });*/
     });
   </script>
 
