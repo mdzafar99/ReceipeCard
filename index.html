@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Interactive Recipe Card - Chocolate Cake</title>
+  <title>Interactive Recipe Cards - Bite of Bliss</title>
+
+  
   <style>
-    /* 1. CSS Variables for easy maintenance */
     :root {
-      --primary-color: #ff597b; /* Main accent color (Pink/Red) */
-      --secondary-color: #ff8c94; /* Button/accent color (Coral) */
-      --light-bg: #ffe2e2; /* Light background for highlighting */
+      --primary-color: #ff597b;
+      --secondary-color: #ff8c94;
+      --light-bg: #ffe2e2;
       --text-color: #333;
       --white: #fff;
       --card-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
@@ -21,30 +22,29 @@
       color: var(--text-color);
       margin: 0;
       padding: 0;
-     
     }
 
     .heading {
       text-align: center;
+      padding: 20px 0;
     }
 
-    .heading h3{
-      color: #eb2a6e;
+    .heading h1 {
+      color: var(--primary-color);
+      margin-bottom: 5px;
     }
 
-    .heading h3{
+    .heading h3 {
       color: #d99793;
+      font-weight: 500;
     }
 
     .container {
-      padding: 5px;
       display: flex;
-      flex-direction: colomn;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      min-height: 100vh;
-      gap: 5px;
-      
+      gap: 40px;
+      padding: 20px;
     }
 
     .recipe-card {
@@ -53,8 +53,7 @@
       max-width: 800px;
       border-radius: 20px;
       box-shadow: var(--card-shadow);
-      /* CRITICAL for containment: Ensures header/image conforms to rounded corners */
-      overflow: hidden; 
+      overflow: hidden;
       transition: transform 0.3s ease;
     }
 
@@ -102,15 +101,13 @@
       padding-bottom: 5px;
     }
 
-    /* Target both ul and ol */
     ul, ol {
       list-style: none;
       padding: 0;
     }
 
-    /* Style for list items */
     li {
-      padding: 8px 10px; 
+      padding: 8px 10px;
       border-bottom: 1px solid #f5f5f5;
       transition: all 0.3s ease;
     }
@@ -120,19 +117,11 @@
       transform: translateX(5px);
     }
 
-    /* 2. CSS for Active Step (Uses data-active attribute set by JS) */
-    #stepsList li[data-active="true"] {
-      background: var(--light-bg); 
-      font-weight: 600; 
-      color: var(--primary-color);
-      border-radius: 5px; 
-      transform: none; 
-    }
-
     .buttons {
       display: flex;
       gap: 10px;
       margin: 20px 0;
+      flex-wrap: wrap;
     }
 
     button {
@@ -181,143 +170,215 @@
       }
     }
   </style>
+
+
+
+
+  
 </head>
 <body>
   <div class="heading">
     <h1>Bite of Bliss</h1>
     <h3>Eat Well, Live Well, Feel Amazing!</h3>
   </div>
+
   <div class="container">
+    <!-- CARD 1 -->
     <div class="recipe-card">
       <div class="header">
-      <img src="1.jpg" alt="Chocolate Cake" />
-      <div class="title">Chocolate Cake</div>
-    </div>
-    <div class="content">
-      <p><strong>Preparation Time:</strong> 45 mins | <strong>Serving Size:</strong> 6</p>
-      
-      <div class="buttons">
-        <button id="toggleIngredients">Show Ingredients</button>
-        <button id="toggleSteps">Show Steps</button>
-        <button id="startCooking">Start Cooking</button>
+        <img src="1.jpg" alt="Chocolate Cake" />
+        <div class="title">Chocolate Cake</div>
       </div>
-
-      <div id="ingredients" class="hidden">
-        <h2>Ingredients</h2>
-        <ul>
-          <li>1 cup all-purpose flour</li>
-          <li>1 cup sugar</li>
-          <li>1/2 cup cocoa powder</li>
-          <li>2 eggs</li>
-          <li>1/2 cup butter</li>
-          <li>1 tsp baking powder</li>
-          <li>1/2 cup milk</li>
-        </ul>
-      </div>
-
-      <div id="steps" class="hidden">
-        <h2>Steps</h2>
-        <ol id="stepsList"> 
-          <li>Preheat the oven to 180°C.</li>
-          <li>Mix flour, sugar, and cocoa powder.</li>
-          <li>Add eggs, butter, and milk; whisk until smooth.</li>
-          <li>Pour the batter into a greased baking pan.</li>
-          <li>Bake for 30–35 minutes.</li>
-          <li>Cool and serve with chocolate glaze.</li>
-        </ol>
-        <div class="progress-bar">
-          <div class="progress" id="progress"></div>
+      <div class="content">
+        <p><strong>Preparation Time:</strong> 45 mins | <strong>Serving Size:</strong> 6</p>
+        <div class="buttons">
+          <button class="toggleIngredients">Show Ingredients</button>
+          <button class="toggleSteps">Show Steps</button>
+          <button class="startCooking">Start Cooking</button>
         </div>
-        <button id="nextStep">Next Step</button> 
+
+        <div class="ingredients hidden">
+          <h2>Ingredients</h2>
+          <ul>
+            <li>1 cup all-purpose flour</li>
+            <li>1 cup sugar</li>
+            <li>1/2 cup cocoa powder</li>
+            <li>2 eggs</li>
+            <li>1/2 cup butter</li>
+            <li>1 tsp baking powder</li>
+            <li>1/2 cup milk</li>
+          </ul>
+        </div>
+
+        <div class="steps hidden">
+          <h2>Steps</h2>
+          <ol class="stepsList">
+            <li>Preheat the oven to 180°C.</li>
+            <li>Mix flour, sugar, and cocoa powder.</li>
+            <li>Add eggs, butter, and milk; whisk until smooth.</li>
+            <li>Pour the batter into a greased baking pan.</li>
+            <li>Bake for 30–35 minutes.</li>
+            <li>Cool and serve with chocolate glaze.</li>
+          </ol>
+          <div class="progress-bar">
+            <div class="progress"></div>
+          </div>
+          <button class="nextStep">Next Step</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="recipe-card">
+      <div class="header">
+        <img src="2.jpg" alt="Vanilla Cupcake" />
+        <div class="title">Vanilla Cupcake</div>
+      </div>
+      <div class="content">
+        <p><strong>Preparation Time:</strong> 35 mins | <strong>Serving Size:</strong> 8</p>
+        <div class="buttons">
+          <button class="toggleIngredients">Show Ingredients</button>
+          <button class="toggleSteps">Show Steps</button>
+          <button class="startCooking">Start Cooking</button>
+        </div>
+
+        <div class="ingredients hidden">
+          <h2>Ingredients</h2>
+          <ul>
+            <li>1½ cups flour</li>
+            <li>¾ cup sugar</li>
+            <li>2 eggs</li>
+            <li>½ cup butter</li>
+            <li>1 tsp vanilla extract</li>
+            <li>½ cup milk</li>
+            <li>1 tsp baking powder</li>
+          </ul>
+        </div>
+
+        <div class="steps hidden">
+          <h2>Steps</h2>
+          <ol class="stepsList">
+            <li>Preheat oven to 180°C.</li>
+            <li>Mix flour, sugar, and baking powder.</li>
+            <li>Add eggs, butter, and vanilla; mix well.</li>
+            <li>Pour batter into cupcake molds.</li>
+            <li>Bake for 20 minutes.</li>
+            <li>Cool and frost with vanilla cream.</li>
+          </ol>
+          <div class="progress-bar">
+            <div class="progress"></div>
+          </div>
+          <button class="nextStep">Next Step</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 3 -->
+    <div class="recipe-card">
+      <div class="header">
+        <img src="3.jpg" alt="Strawberry Shake" />
+        <div class="title">Strawberry Shake</div>
+      </div>
+      <div class="content">
+        <p><strong>Preparation Time:</strong> 10 mins | <strong>Serving Size:</strong> 2</p>
+        <div class="buttons">
+          <button class="toggleIngredients">Show Ingredients</button>
+          <button class="toggleSteps">Show Steps</button>
+          <button class="startCooking">Start Cooking</button>
+        </div>
+
+        <div class="ingredients hidden">
+          <h2>Ingredients</h2>
+          <ul>
+            <li>1 cup fresh strawberries</li>
+            <li>1 cup milk</li>
+            <li>2 tbsp sugar</li>
+            <li>½ cup ice</li>
+            <li>1 scoop vanilla ice cream</li>
+          </ul>
+        </div>
+
+        <div class="steps hidden">
+          <h2>Steps</h2>
+          <ol class="stepsList">
+            <li>Wash and chop strawberries.</li>
+            <li>Add all ingredients to blender.</li>
+            <li>Blend until smooth.</li>
+            <li>Pour into glasses and serve chilled.</li>
+          </ol>
+          <div class="progress-bar">
+            <div class="progress"></div>
+          </div>
+          <button class="nextStep">Next Step</button>
+        </div>
       </div>
     </div>
   </div>
 
-    
-  </div>
 
+
+  
   <script>
-    // Get all necessary elements
-    const toggleIngredients = document.getElementById('toggleIngredients');
-    const toggleSteps = document.getElementById('toggleSteps');
-    const ingredients = document.getElementById('ingredients');
-    const steps = document.getElementById('steps');
-    const startCooking = document.getElementById('startCooking');
-    const nextStep = document.getElementById('nextStep');
-    const stepsListContainer = document.getElementById('stepsList');
-    const stepsList = stepsListContainer.getElementsByTagName('li');
-    const progress = document.getElementById('progress');
+    
+    document.querySelectorAll('.recipe-card').forEach(card => {
+      const toggleIngredients = card.querySelector('.toggleIngredients');
+      const toggleSteps = card.querySelector('.toggleSteps');
+      const startCooking = card.querySelector('.startCooking');
+      const nextStep = card.querySelector('.nextStep');
+      const ingredients = card.querySelector('.ingredients');
+      const steps = card.querySelector('.steps');
+      const stepsList = card.querySelectorAll('.stepsList li');
+      const progress = card.querySelector('.progress');
+      let currentStep = -1;
 
-    let currentStep = -1; // Start at -1 so first "Start" or "Next" can properly move to 0
-
-    // Function to update the step visualization and progress bar
-    const updateStepUI = () => {
-        // 1. Clear all active states
-        Array.from(stepsList).forEach(step => {
-            step.removeAttribute('data-active');
-        });
-        
-        // 2. Set the current step's active state, if within bounds
+      const updateStepUI = () => {
+        stepsList.forEach(step => step.removeAttribute('data-active'));
         if (currentStep >= 0 && currentStep < stepsList.length) {
-            stepsList[currentStep].setAttribute('data-active', 'true');
+          stepsList[currentStep].setAttribute('data-active', 'true');
         }
-
-        // 3. Update the progress bar
         const progressWidth = ((currentStep + 1) / stepsList.length) * 100;
         progress.style.width = `${progressWidth}%`;
-        
-        // 4. Update the Next button text
-        if (currentStep === stepsList.length - 1) {
-            nextStep.textContent = "Finish & Enjoy!";
-        } else {
-            nextStep.textContent = "Next Step";
-        }
-    };
+        nextStep.textContent = currentStep === stepsList.length - 1 ? "Finish & Enjoy!" : "Next Step";
+      };
 
-    // 1. Toggle Ingredients
-    toggleIngredients.addEventListener('click', () => {
-      ingredients.classList.toggle('hidden');
-      toggleIngredients.textContent = ingredients.classList.contains('hidden') ? 'Show Ingredients' : 'Hide Ingredients';
-    });
+      toggleIngredients.addEventListener('click', () => {
+        ingredients.classList.toggle('hidden');
+        toggleIngredients.textContent = ingredients.classList.contains('hidden') ? 'Show Ingredients' : 'Hide Ingredients';
+      });
 
-    // 2. Toggle Steps
-    toggleSteps.addEventListener('click', () => {
-      steps.classList.toggle('hidden');
-      toggleSteps.textContent = steps.classList.contains('hidden') ? 'Show Steps' : 'Hide Steps';
-    });
+      toggleSteps.addEventListener('click', () => {
+        steps.classList.toggle('hidden');
+        toggleSteps.textContent = steps.classList.contains('hidden') ? 'Show Steps' : 'Hide Steps';
+      });
 
-    // 3. Start Cooking / Reset
-    startCooking.addEventListener('click', () => {
-      // UX Improvement: automatically show the steps
-      if (steps.classList.contains('hidden')) {
+      startCooking.addEventListener('click', () => {
+        if (steps.classList.contains('hidden')) {
           steps.classList.remove('hidden');
           toggleSteps.textContent = 'Hide Steps';
-      }
-      
-      nextStep.style.display = 'block'; // Make sure the button is visible
-      currentStep = 0;
-      updateStepUI(); 
-    });
-
-    // 4. Next Step
-    nextStep.addEventListener('click', () => {
-      if (currentStep < stepsList.length - 1) {
-        currentStep++;
+        }
+        nextStep.style.display = 'block';
+        currentStep = 0;
         updateStepUI();
-        
-      } else if (currentStep === stepsList.length - 1) {
-        // Final step complete
-        updateStepUI(); // Ensure progress hits 100%
-        alert('Cooking complete! Enjoy your delicious chocolate cake 🎂');
-        currentStep = stepsList.length; // Set to finished state
-        nextStep.style.display = 'none'; // Hide the button after finishing
-        
-      } else {
-        // If the recipe is already finished
-        alert('The recipe is finished! Click "Start Cooking" to prepare another cake!'); 
-      }
+      });
+
+      nextStep.addEventListener('click', () => {
+        if (currentStep < stepsList.length - 1) {
+          currentStep++;
+          updateStepUI();
+        } else if (currentStep === stepsList.length - 1) {
+          updateStepUI();
+          alert('Cooking complete! Enjoy your delicious creation 🍰');
+          nextStep.style.display = 'none';
+          currentStep = stepsList.length;
+        } else {
+          alert('Recipe finished! Click "Start Cooking" to begin again.');
+        }
+      });
     });
   </script>
-</body>
-  </html>
+
+
+
   
+</body>
+</html>
