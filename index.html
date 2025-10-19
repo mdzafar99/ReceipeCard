@@ -4,10 +4,244 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="Images/icon.png">
-  <link rel="stylesheet" href="style.css">
   <title>Interactive Recipe Cards - Bite of Bliss</title>
-</head>
+
   
+  <style>
+    :root {
+      --primary-color: #ff597b;
+      --secondary-color: #ff8c94;
+      --light-bg: #ffe2e2;
+      --text-color: #333;
+      --white: #fff;
+      --card-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, var(--white), #ffeaea);
+      color: var(--text-color);
+      margin: 0;
+      padding: 0;
+    }
+
+    .logo {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      padding: 20px;
+    }
+
+    .logo img{
+      height: 100px;
+      width: 100px;
+    }
+
+    .heading {
+      padding: 0 0;
+      
+    }
+
+    .heading h1 {
+      color: var(--primary-color);
+      font-size: 1.8rem;
+      gap: none;
+    }
+
+    .heading h3 {
+      color: #d99793;
+      font-weight: 500;
+      font-style: italic;
+      font-size: 0.7rem;
+    }
+
+    .dash{
+      margin: 40px auto;
+      height: 2px;
+      width: 30%;
+      background: var(--primary-color);
+      border-radius: 50px;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+      padding: 20px;
+    }
+
+    .recipe-card {
+      background: var(--white);
+      width: 90%;
+      max-width: 800px;
+      border-radius: 20px;
+      box-shadow: var(--card-shadow);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .recipe-card:hover {
+      transform: scale(1.02);
+    }
+
+    .header {
+      position: relative;
+    }
+
+    .header img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-bottom: 5px solid var(--secondary-color);
+    }
+
+    .title {
+      position: absolute;
+      bottom: 10px;
+      left: 20px;
+      color: var(--white);
+      background: rgba(0, 0, 0, 0.5);
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 1.8em;
+      animation: fadeInUp 1s ease;
+    }
+
+    @keyframes fadeInUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    h2 {
+      color: var(--primary-color);
+      margin-bottom: 10px;
+      border-bottom: 2px solid var(--light-bg);
+      display: inline-block;
+      padding-bottom: 5px;
+    }
+
+    ul, ol {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      padding: 8px 10px;
+      border-bottom: 1px solid #f5f5f5;
+      transition: all 0.3s ease;
+    }
+
+    li:hover {
+      color: var(--primary-color);
+      transform: translateX(5px);
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      background: var(--secondary-color);
+      color: var(--white);
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background: var(--primary-color);
+      transform: scale(1.05);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .progress-bar {
+      height: 10px;
+      background: var(--light-bg);
+      border-radius: 5px;
+      overflow: hidden;
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+
+    .progress {
+      height: 10px;
+      width: 0%;
+      background: var(--primary-color);
+      border-radius: 5px;
+      transition: width 0.5s ease;
+    }
+
+    @media (max-width: 600px) {
+      .title {
+        font-size: 1.3em;
+      }
+      .content {
+        padding: 15px;
+      }
+
+      .logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      padding: 20px;
+      }
+      
+      .logo img{
+      height: 70px;
+      width: 70px;
+      }
+      
+      .heading {
+      padding: 10px 0;
+      }
+      
+      .heading h1 {
+      color: var(--primary-color);
+      margin-bottom: 5px;
+      font-size: 1.7rem;
+      }
+      
+      .heading h3 {
+      color: #d99793;
+      font-weight: 500;
+      font-style: italic;
+      font-size: 0.6rem;
+      }
+    
+    }
+
+    footer{
+      text-align: center;
+      padding: 15px;
+      font-size: 16px;
+      color: #d99793;
+      font-weight: bold;
+      margin: 50 auto;
+    }
+  </style>
+
+
+
+
+  
+</head>
 <body>
   <div class="logo">
     <img src="Images/icon.png" alt="Logo" class="logo-img" />
@@ -20,7 +254,6 @@
   <div class="dash"></div>
 
   <div class="container">
-    
     <!-- CARD 1 -->
     <div class="recipe-card">
       <div class="header">
@@ -288,8 +521,79 @@
 
   <footer>
   Made with ❤️ by Md Zafar
-  </footer
+  </footer>
 
-<script src="script.js"></script>
+
+
+  
+  <script>
+    
+    document.querySelectorAll('.recipe-card').forEach(card => {
+      const toggleIngredients = card.querySelector('.toggleIngredients');
+      const toggleSteps = card.querySelector('.toggleSteps');
+      const startCooking = card.querySelector('.startCooking');
+      const nextStep = card.querySelector('.nextStep');
+      const ingredients = card.querySelector('.ingredients');
+      const steps = card.querySelector('.steps');
+      const stepsList = card.querySelectorAll('.stepsList li');
+      const progress = card.querySelector('.progress');
+      let currentStep = -1;
+
+      const updateStepUI = () => {
+        stepsList.forEach(step => step.removeAttribute('data-active'));
+        if (currentStep >= 0 && currentStep < stepsList.length) {
+          stepsList[currentStep].setAttribute('data-active', 'true');
+        }
+        const progressWidth = ((currentStep + 1) / stepsList.length) * 100;
+        progress.style.width = `${progressWidth}%`;
+        nextStep.textContent = currentStep === stepsList.length - 1 ? "Finish & Enjoy!" : "Next Step";
+      };
+
+      toggleIngredients.addEventListener('click', () => {
+        ingredients.classList.toggle('hidden');
+        toggleIngredients.textContent = ingredients.classList.contains('hidden') ? 'Show Ingredients' : 'Hide Ingredients';
+      });
+
+      toggleSteps.addEventListener('click', () => {
+        steps.classList.toggle('hidden');
+        toggleSteps.textContent = steps.classList.contains('hidden') ? 'Show Steps' : 'Hide Steps';
+      });
+
+      startCooking.addEventListener('click', () => {
+        if (steps.classList.contains('hidden')) {
+          steps.classList.remove('hidden');
+          toggleSteps.textContent = 'Hide Steps';
+        }
+        nextStep.style.display = 'block';
+        currentStep = 0;
+        updateStepUI();
+      });
+      
+
+      nextStep.onclick = () => {
+        if (currentStep < stepsList.length - 1) {
+          stepsList [currentStep].style.background = 'transparent';
+          currentStep++;
+          stepsList[currentStep].style.background = '#ffe2e2';
+          progress.style.width = `${((currentStep + 1) / stepsList.length)*100}%`;
+        } 
+        else if (currentStep === stepsList.length - 1) {
+          updateStepUI();
+          alert('Cooking complete! Enjoy your delicious creation 🍰');
+          nextStep.style.display = 'none';
+          currentStep = stepsList.length;
+        }
+        else {
+          alert('Recipe finished! Click "Start Cooking" to begin again.');
+          }
+      };
+
+      
+    });
+  </script>
+
+
+
+  
 </body>
 </html>
